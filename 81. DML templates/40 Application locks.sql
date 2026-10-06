@@ -1,19 +1,19 @@
 -- Some more details in help
 
-exec sp_getapplock @Resource = 'Secret_operation', @LockMode = 'Exclusive', @LockOwner = 'Session'; -- Session lock
-exec sp_releaseapplock @Resource = '123', @LockOwner = 'Session';
+EXEC sp_getapplock @Resource = 'Secret_operation', @LockMode = 'Exclusive', @LockOwner = 'Session'; -- Session lock
+EXEC sp_releaseapplock @Resource = '123', @LockOwner = 'Session';
 
-declare @result int;
-exec @result = sp_getapplock @Resource = '123', @LockMode = 'Exclusive', @LockOwner = 'Session', @LockTimeout = 1000; -- Timeout & check
-select @result;
+DECLARE @result INT;
+EXEC @result = sp_getapplock @Resource = '123', @LockMode = 'Exclusive', @LockOwner = 'Session', @LockTimeout = 1000; -- Timeout & check
+SELECT @result;
 
-begin tran;
-exec sp_getapplock @Resource = 'Secret_operation', @LockMode = 'Exclusive'; -- Transaction lock
-exec sp_releaseapplock @Resource = '123';
-commit tran;
-rollback tran;
+BEGIN TRAN;
+EXEC sp_getapplock @Resource = 'Secret_operation', @LockMode = 'Exclusive'; -- Transaction lock
+EXEC sp_releaseapplock @Resource = '123';
+COMMIT TRAN;
+ROLLBACK TRAN;
 
-select @@TRANCOUNT;
+SELECT @@TRANCOUNT;
 
 SELECT -- The application lock list
     tl.request_session_id AS [SPID],
@@ -30,4 +30,14 @@ INNER JOIN sys.dm_exec_sessions es
 WHERE tl.resource_type = 'APPLICATION'
 ORDER BY tl.resource_description, tl.request_status
 ;
+
+
+
+
+
+
+
+
+
+
 
