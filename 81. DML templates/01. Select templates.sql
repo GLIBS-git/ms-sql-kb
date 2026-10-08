@@ -1,0 +1,32 @@
+SELECT *
+FROM VENDTABLE
+WHERE DATAAREAID = 'mrc'
+ORDER BY ACCOUNTNUM
+OFFSET 50 ROWS
+FETCH NEXT 50 ROWS ONLY
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
