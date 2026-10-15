@@ -44,7 +44,7 @@ OUTER APPLY (
 	INNER JOIN sys.dm_exec_connections Y WITH (NOLOCK) ON Y.session_id = X.session_id
 	WHERE Y.connection_id = A.connection_id
 ) W
-where A.database_id in (db_id('Production_DB_name'), db_id('Buffer_DB_name'))
+WHERE A.database_id IN (db_id('Production_DB_name'), db_id('Buffer_DB_name'))
 AND A.session_id <> @@SPID
 AND A.command NOT IN ('GHOST CLEANUP','CHECKPOINT','TM REQUEST','WAITFOR') -- Exemptions list
 --AND A.session_id IN (451)
